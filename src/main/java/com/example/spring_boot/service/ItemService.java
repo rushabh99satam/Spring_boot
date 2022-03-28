@@ -6,5 +6,6 @@ import com.example.spring_boot.entity.Item;
 
 public interface ItemService {
 
-	List<Item> getAllItems();
+	List<Item> getAllItems();	//Will get all the items
+	Item saveItem(Item item);	//Will save items to database
 }

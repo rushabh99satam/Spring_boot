@@ -5,7 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
+@JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "FieldHandler"})
 public class Item {
 
 	@Id
@@ -17,6 +21,7 @@ public class Item {
 	private Double cost;
 	
 	@ManyToOne
+	@JsonIgnore
 	private OrderItems order;
 
 	public Item() {
@@ -27,6 +32,7 @@ public class Item {
 		this.name = name;
 		this.cost = cost;
 	}
+
 
 	public String getName() {
 		return name;
@@ -56,5 +62,9 @@ public class Item {
 		this.order = order;
 	}
 
+	@Override
+	public String toString() {
+		return "Item [itemId=" + itemId + ", name=" + name + ", cost=" + cost + "]";
+	}
 	
 }
