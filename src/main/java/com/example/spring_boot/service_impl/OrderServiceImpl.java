@@ -12,7 +12,6 @@ import com.example.spring_boot.entity.Item;
 import com.example.spring_boot.entity.OrderItems;
 import com.example.spring_boot.repository.ItemRepository;
 import com.example.spring_boot.repository.OrderRepository;
-import com.example.spring_boot.service.ItemService;
 import com.example.spring_boot.service.OrderService;
 
 @Service
@@ -27,9 +26,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private ItemRepository itemRepository;
-	
-	@Autowired
-	private ItemService itemService;
 
 	@Override
 	public List<OrderItems> getAllOrders() {
@@ -70,8 +66,9 @@ public class OrderServiceImpl implements OrderService {
 			orderRepository.delete(orderItem);
 		} else {
 			for (Item item : items) {
-				itemService.deleteItem(item.getItemId());
+				item.setOrder(null);
 			}
+
 			orderRepository.delete(orderItem);
 		}
 	}

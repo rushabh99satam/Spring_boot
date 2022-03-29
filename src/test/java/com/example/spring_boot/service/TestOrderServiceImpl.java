@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.example.spring_boot.entity.Item;
 import com.example.spring_boot.entity.OrderItems;
 
 @SpringBootTest
@@ -64,18 +65,18 @@ class TestOrderServiceImpl {
 	
 	
 	
-//	@Test
-//	@DirtiesContext
-//	void testdeleteOrderWithItems() {
-//		OrderItems orderItems = orderService.addItemsToOrderItems(1001, 1);
-//		logger.info("Orders -> {}", orderItems);
-//		orderService.deleteOrder(1);
-//		List<Item> items = orderItems.getItems();
-//		for (Item item : items) {
-//			logger.info("{}",item.getOrder());
-//		}
-//		List<OrderItems> allOrders = orderService.getAllOrders();
-//		assertEquals(new ArrayList<>(), allOrders);
-//	}
+	@Test
+	@DirtiesContext
+	void testdeleteOrderWithItems() {
+		OrderItems orderItems = orderService.addItemsToOrderItems(1001, 1);
+		logger.info("Orders -> {}", orderItems);
+		orderService.deleteOrder(1);
+		List<Item> items = orderItems.getItems();
+		for (Item item : items) {
+			logger.info("{}",item.getOrder());
+		}
+		List<OrderItems> allOrders = orderService.getAllOrders();
+		assertEquals(new ArrayList<>(), allOrders);
+	}
 
 }
