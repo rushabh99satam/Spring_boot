@@ -84,6 +84,10 @@ public class OrderItems {
 	public void addItems(Item item) {
 		items.add(item);
 	}
+	
+	public void removeItems(Item item) {
+		items.remove(item);
+	}
 
 	public Integer getOrderId() {
 		return orderId;

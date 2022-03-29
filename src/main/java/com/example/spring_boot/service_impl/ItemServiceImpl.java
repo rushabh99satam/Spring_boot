@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.spring_boot.entity.Item;
+import com.example.spring_boot.entity.OrderItems;
 import com.example.spring_boot.repository.ItemRepository;
 import com.example.spring_boot.service.ItemService;
 
@@ -26,6 +27,21 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public Item saveItem(Item item) {
 		return itemRepository.save(item);
+	}
+
+	@Override
+	public void deleteItem(Integer itemId) {
+		Item item = itemRepository.getById(itemId);
+		OrderItems order = item.getOrder();
+		if (order == null) {
+			itemRepository.delete(item);
+		}
+		else {
+			order.removeItems(item);
+			itemRepository.delete(item);
+		}
+			
+		
 	}
 
 }

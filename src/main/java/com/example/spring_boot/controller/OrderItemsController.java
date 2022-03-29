@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +24,7 @@ public class OrderItemsController {
 	//Will get all the orders
 	@GetMapping("/orders")
 	public List<OrderItems> itemList(Model model) {
-		return orderService.getAllItems();
+		return orderService.getAllOrders();
 	}
 
 	//Will add order details
@@ -42,7 +43,10 @@ public class OrderItemsController {
 	@GetMapping("/orders/cost/{orderId}")
 	public String totalCost(@PathVariable String orderId) {
 		return orderService.getTotalCostOfItems(orderId);
-		
-		
+	}
+	
+	@DeleteMapping("/orders/{orderId}")
+	public void deleteItem(@PathVariable String orderId) {
+		orderService.deleteOrder(Integer.parseInt(orderId));
 	}
 }
