@@ -8,6 +8,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -34,17 +36,12 @@ public class OrderedItems {
 	private String addressOfDelivery;
 	
 	@ManyToMany
+	//For customization of table
+	@JoinTable(name = "Order_Item", joinColumns = @JoinColumn(name = "Order_Id"), 
+	inverseJoinColumns = @JoinColumn(name = "Item_Id"))
 	private List<Item> items = new ArrayList<>();
 
 	public OrderedItems() {};
-	
-//	public OrderItems(int customerId, Date dateOfDelivery, String addressOfDelivery, List<Item> items) {
-//		super();
-//		this.customerId = customerId;
-//		this.dateOfDelivery = dateOfDelivery;
-//		this.addressOfDelivery = addressOfDelivery;
-//		this.items = items;
-//	}
 	
 	public OrderedItems(int customerId, Date dateOfDelivery, String addressOfDelivery) {
 		super();

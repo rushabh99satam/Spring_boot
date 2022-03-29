@@ -7,7 +7,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.spring_boot.entity.Item;
 import com.example.spring_boot.entity.OrderedItems;
+import com.example.spring_boot.repository.ItemRepository;
 import com.example.spring_boot.repository.OrderedItemsRepository;
 import com.example.spring_boot.service.OrderedItemService;
 
@@ -18,6 +20,9 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 	@Autowired
 	OrderedItemsRepository orderedItemsRepository;
 	
+	@Autowired
+	ItemRepository itemRepository;
+	
 	@Override
 	public List<OrderedItems> getAllItems() {
 		return orderedItemsRepository.findAll();
@@ -26,6 +31,15 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 	@Override
 	public OrderedItems saveItem(OrderedItems order) {
 		return orderedItemsRepository.save(order);
+	}
+
+	@Override
+	public OrderedItems addItemsToOrder(Integer orderId, Integer itemId) {
+		OrderedItems orderedItems = orderedItemsRepository.getById(orderId);
+		Item item = itemRepository.getById(itemId);
+		item.addOrder(orderedItems);
+		orderedItems.addItems(item);
+		return orderedItemsRepository.save(orderedItems);
 	}
 
 }
