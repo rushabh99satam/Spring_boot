@@ -8,7 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 //By default, Jackson 2 will only work with with fields that are either public, or have a public 
 //getter methods – serializing an entity that has all fields private or package private will fail:
 @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "FieldHandler"})
-public class OrderItems {
+public class OrderedItems {
  
 
 	@Id
@@ -33,10 +33,10 @@ public class OrderItems {
 	@Column(name = "addressOfDelivery")
 	private String addressOfDelivery;
 	
-	@OneToMany(mappedBy = "order")
+	@ManyToMany
 	private List<Item> items = new ArrayList<>();
 
-	public OrderItems() {};
+	public OrderedItems() {};
 	
 //	public OrderItems(int customerId, Date dateOfDelivery, String addressOfDelivery, List<Item> items) {
 //		super();
@@ -46,7 +46,7 @@ public class OrderItems {
 //		this.items = items;
 //	}
 	
-	public OrderItems(int customerId, Date dateOfDelivery, String addressOfDelivery) {
+	public OrderedItems(int customerId, Date dateOfDelivery, String addressOfDelivery) {
 		super();
 		this.customerId = customerId;
 		this.dateOfDelivery = dateOfDelivery;

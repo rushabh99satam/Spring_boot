@@ -1,9 +1,11 @@
 package com.example.spring_boot.entity;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -20,9 +22,9 @@ public class Item {
 
 	private Double cost;
 	
-	@ManyToOne
 	@JsonIgnore
-	private OrderItems order;
+	@ManyToMany(mappedBy = "items")
+	private List<OrderedItems> orders;
 
 	public Item() {
 	}
@@ -54,12 +56,15 @@ public class Item {
 		return itemId;
 	}
 
-	public OrderItems getOrder() {
-		return order;
+	public List<OrderedItems> getOrders() {
+		return orders;
 	}
 
-	public void setOrder(OrderItems order) {
-		this.order = order;
+	public void addOrder(OrderedItems order) {
+		 orders.add(order);
+	}
+	public void removeOrder(OrderedItems order) {
+		orders.add(order);
 	}
 
 	@Override
