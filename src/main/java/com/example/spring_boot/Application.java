@@ -24,6 +24,7 @@ public class Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		orderedItemService.saveItem(new OrderedItems(1, new Date(), "Borivali"));
+		orderedItemService.saveItem(new OrderedItems(2, new Date(), "Thane"));
 		
 	}
 

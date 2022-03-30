@@ -10,4 +10,6 @@ public interface ItemService {
 	List<Item> getAllItems();
 	//Will save item
 	Item saveItem(Item item);
+	//Will delete item
+	List<Item> deleteItem(String itemId);
 }

@@ -19,12 +19,12 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 
 	@Autowired
 	OrderedItemsRepository orderedItemsRepository;
-	
+
 	@Autowired
 	ItemRepository itemRepository;
-	
+
 	@Override
-	public List<OrderedItems> getAllItems() {
+	public List<OrderedItems> getAllOrders() {
 		return orderedItemsRepository.findAll();
 	}
 
@@ -40,6 +40,32 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 		item.addOrder(orderedItems);
 		orderedItems.addItems(item);
 		return orderedItemsRepository.save(orderedItems);
+	}
+
+	@Override
+	public String totalCostOfOrder(String orderId) {
+		OrderedItems orderedItems = orderedItemsRepository.getById(Integer.parseInt(orderId));
+		Double cost = 0d;
+		for (Item item : orderedItems.getItems()) {
+			cost = cost + item.getCost();
+		}
+		return String.valueOf(cost);
+	}
+
+	@Override
+	public List<OrderedItems> deleteOrders(String orderId) {
+		OrderedItems orderedItem = orderedItemsRepository.getById(Integer.parseInt(orderId));
+		List<Item> items = orderedItem.getItems();
+		if (items == null) {
+			orderedItemsRepository.delete(orderedItem);
+		} else {
+			for (Item item : items) {
+				item.removeOrder(orderedItem);
+			}
+			orderedItemsRepository.delete(orderedItem);
+		}
+
+		return getAllOrders();
 	}
 
 }

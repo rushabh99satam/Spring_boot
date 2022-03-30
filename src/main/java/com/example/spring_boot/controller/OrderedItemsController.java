@@ -3,6 +3,7 @@ package com.example.spring_boot.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,8 +22,8 @@ public class OrderedItemsController {
 	
 	//Will get orders
 	@GetMapping("/orders")
-	public List<OrderedItems> getItems() {
-		return orderedItemsService.getAllItems();
+	public List<OrderedItems> getOrders() {
+		return orderedItemsService.getAllOrders();
 	}
 	
 	//Will add orders
@@ -37,4 +38,17 @@ public class OrderedItemsController {
 		return orderedItemsService.addItemsToOrder(Integer.parseInt(orderId),Integer.parseInt(itemId));
 		
 	}
+	
+	//Will get total cost of item
+	@GetMapping("/orders/cost/{orderId}")
+	public String totalCostOfOrder(@PathVariable String orderId) {
+		return orderedItemsService.totalCostOfOrder(orderId);
+	}
+	
+	//Will delete order
+	@DeleteMapping("/orders/{orderId}")
+	public List<OrderedItems> deleteOrder(@PathVariable String orderId){
+		return orderedItemsService.deleteOrders(orderId);
+	}
+	
 }
