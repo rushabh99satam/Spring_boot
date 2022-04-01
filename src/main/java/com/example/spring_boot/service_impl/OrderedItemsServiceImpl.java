@@ -68,4 +68,13 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 		return getAllOrders();
 	}
 
+	@Override
+	public OrderedItems deleteItemsInOrder(String orderId, String itemId) {
+		OrderedItems order = orderedItemsRepository.getById(Integer.parseInt(orderId));
+		Item item = itemRepository.getById(Integer.parseInt(itemId));
+		order.removeItems(item);
+		item.removeOrder(order);
+		return saveItem(order);
+	}
+
 }

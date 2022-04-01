@@ -16,4 +16,6 @@ public interface OrderedItemService {
 	String totalCostOfOrder(String orderId);
 	//Delete Order
 	List<OrderedItems> deleteOrders(String orderId);
+	//Delete items in order
+	OrderedItems deleteItemsInOrder(String orderId, String itemId);
 }

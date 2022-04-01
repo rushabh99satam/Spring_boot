@@ -66,5 +66,12 @@ class TestOrderedItemsServiceImpl {
 		logger.info("Orders -> {}",orders);
 	}
 	
-	
+	@Test
+	@DirtiesContext
+	void testdeleteItemsInOrder() {
+		orderedItemService.addItemsToOrder(1, 1001);
+		orderedItemService.addItemsToOrder(1, 1002);
+		OrderedItems deleteItemsInOrder = orderedItemService.deleteItemsInOrder("1", "1001");
+		logger.info("Orders ->{}", deleteItemsInOrder);
+	}
 }

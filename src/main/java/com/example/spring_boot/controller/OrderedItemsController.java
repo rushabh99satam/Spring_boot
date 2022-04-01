@@ -51,4 +51,9 @@ public class OrderedItemsController {
 		return orderedItemsService.deleteOrders(orderId);
 	}
 	
+	//Will delete items in order
+	@DeleteMapping("/orders/{orderId}/{itemId}")
+	public OrderedItems deleteItemsInOrder(@PathVariable String orderId, @PathVariable String itemId){
+		return orderedItemsService.deleteItemsInOrder(orderId, itemId);
+	}
 }
