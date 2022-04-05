@@ -45,4 +45,9 @@ public class ItemServiceImpl implements ItemService {
 		return getAllItems();
 	}
 
+	@Override
+	public Item getById(String itemId) {
+		return itemRepository.getById(Integer.parseInt(itemId));
+	}
+
 }

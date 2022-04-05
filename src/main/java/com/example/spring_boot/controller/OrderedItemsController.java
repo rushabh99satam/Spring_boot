@@ -9,51 +9,105 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.spring_boot.entity.OrderedItems;
 import com.example.spring_boot.service.OrderedItemService;
 
+/**
+ * Orders api controller
+ * 
+ * @author Rushabh Satam
+ *
+ */
 @RestController
+@RequestMapping("api/v1")
 public class OrderedItemsController {
 
 	@Autowired
 	OrderedItemService orderedItemsService;
-	
-	//Will get orders
+
+	/**
+	 * This method gets list of OrderedItems from database.
+	 * 
+	 * @return List of OrderedItems object in json.
+	 */
 	@GetMapping("/orders")
 	public List<OrderedItems> getOrders() {
 		return orderedItemsService.getAllOrders();
 	}
-	
-	//Will add orders
+
+	/**
+	 * This method returns OrderedItems object with specified orderId.
+	 * 
+	 * @param orderId Id of the OrderedItems in String.
+	 * @return OrderedItems object with given orderId in json.
+	 */
+	@GetMapping("/orders/{orderId}")
+	public OrderedItems getOrdersById(@PathVariable String orderId) {
+		return orderedItemsService.getOrderById(orderId);
+	}
+
+	/**
+	 * This method inserts OrderedItems object inside database and returns the
+	 * inserted object.
+	 * 
+	 * @param order OrderedItems object.
+	 * @return OrderedItems object.
+	 */
 	@PostMapping("/orders")
 	public OrderedItems addOrder(@RequestBody OrderedItems order) {
 		return orderedItemsService.saveItem(order);
 	}
-	
-	//Will add items to order
+
+	/**
+	 * This method inserts Item object with specified itemId in list inside
+	 * OrderedItems object with specified orderId.
+	 * 
+	 * @param orderId Id of OrderedItems object in String.
+	 * @param itemId  Id of Item object in String.
+	 * @return OrderedItems object with specified orderId in json.
+	 */
 	@PutMapping("/orders/{orderId}/{itemId}")
 	public OrderedItems addItemsToOrder(@PathVariable String orderId, @PathVariable String itemId) {
-		return orderedItemsService.addItemsToOrder(Integer.parseInt(orderId),Integer.parseInt(itemId));
-		
+		return orderedItemsService.addItemsToOrder(orderId, itemId);
+
 	}
-	
-	//Will get total cost of item
+
+	/**
+	 * This method will return total cost of OrderedItems with given orderId.
+	 * 
+	 * @param orderId Id of OrderedItems object in String.
+	 * @return Cost of OrderedItems in String
+	 */
 	@GetMapping("/orders/cost/{orderId}")
 	public String totalCostOfOrder(@PathVariable String orderId) {
 		return orderedItemsService.totalCostOfOrder(orderId);
 	}
-	
-	//Will delete order
+
+	/**
+	 * This method This method deletes specified OrderedItems object from database
+	 * and returns list of OrderedItems from database.
+	 * 
+	 * @param orderId Id of OrderedItems object in String.
+	 * @return List of OrderedItems object.
+	 */
 	@DeleteMapping("/orders/{orderId}")
-	public List<OrderedItems> deleteOrder(@PathVariable String orderId){
+	public List<OrderedItems> deleteOrder(@PathVariable String orderId) {
 		return orderedItemsService.deleteOrders(orderId);
 	}
-	
-	//Will delete items in order
+
+	/**
+	 * This method deletes Item object with specified itemId from list of items
+	 * inside OrderedItems object with specified orderId
+	 * 
+	 * @param orderId Id of OrderedItems object in String.
+	 * @param itemId  Id of Items object in String.
+	 * @return OrderedItems object with given orderId.
+	 */
 	@DeleteMapping("/orders/{orderId}/{itemId}")
-	public OrderedItems deleteItemsInOrder(@PathVariable String orderId, @PathVariable String itemId){
+	public OrderedItems deleteItemsInOrder(@PathVariable String orderId, @PathVariable String itemId) {
 		return orderedItemsService.deleteItemsInOrder(orderId, itemId);
 	}
 }

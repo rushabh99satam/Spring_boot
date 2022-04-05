@@ -1,9 +1,9 @@
 package com.example.spring_boot.service_impl;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
-import java.util.List;
-
+import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +16,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.example.spring_boot.entity.OrderedItems;
-import com.example.spring_boot.repository.ItemRepository;
+import com.example.spring_boot.service.ItemService;
 import com.example.spring_boot.service.OrderedItemService;
 
 @SpringBootTest
@@ -27,24 +27,28 @@ class TestOrderedItemsServiceImpl {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
 	@Autowired
+	EntityManager em;
+	
+	@Autowired
 	OrderedItemService orderedItemService;
 	
 	@Autowired
-	ItemRepository itemRepository;
+	ItemService itemService;
 	
 	@Test
 	@DirtiesContext
 	void testAddItemsToOrder() {
-		orderedItemService.addItemsToOrder(1, 1001);
-		OrderedItems order = orderedItemService.addItemsToOrder(1, 1002);
-		logger.info("Ordered Items-> {}", order.getItems());
+		logger.info("********** testAddItemsToOrder **********");
+		OrderedItems order = orderedItemService.addItemsToOrder("1", "1001");
+		assertEquals(1, order.getItems().size());
 	}
 
 	@Test
 	@DirtiesContext
 	void testTotalCostOfOrder() {
-		orderedItemService.addItemsToOrder(1, 1001);
-		orderedItemService.addItemsToOrder(1, 1002);
+		logger.info("********** testTotalCostOfOrder **********");
+		orderedItemService.addItemsToOrder("1", "1001");
+		orderedItemService.addItemsToOrder("1", "1002");
 		assertEquals("2000.0", orderedItemService.totalCostOfOrder("1"));
 		
 	}
@@ -52,26 +56,29 @@ class TestOrderedItemsServiceImpl {
 	@Test
 	@DirtiesContext
 	void testDeleteOrdersWithoutItems() {
-		List<OrderedItems> orders = orderedItemService.deleteOrders("1");
-		logger.info("Orders -> {}",orders);
+		logger.info("********** testDeleteOrdersWithoutItems **********");
+		orderedItemService.deleteOrders("1");
+		assertNull(em.find(OrderedItems.class, 1));
 	}
 	
 	@Test
 	@DirtiesContext
 	void testDeleteOrdersWithItems() {
-		orderedItemService.addItemsToOrder(1, 1001);
-		orderedItemService.addItemsToOrder(1, 1002);
-		List<OrderedItems> orders = orderedItemService.deleteOrders("1");
-		logger.info("Items orders ->{}",itemRepository.getById(1001).getOrders());
-		logger.info("Orders -> {}",orders);
+		logger.info("********** testDeleteOrdersWithItems **********");
+		orderedItemService.addItemsToOrder("1", "1001");
+		orderedItemService.addItemsToOrder("1", "1002");
+		orderedItemService.deleteOrders("1");
+		assertNull(em.find(OrderedItems.class, 1));
+		assertEquals(0,itemService.getById("1001").getOrders().size());
 	}
 	
 	@Test
 	@DirtiesContext
 	void testdeleteItemsInOrder() {
-		orderedItemService.addItemsToOrder(1, 1001);
-		orderedItemService.addItemsToOrder(1, 1002);
+		logger.info("********** testdeleteItemsInOrder **********");
+		orderedItemService.addItemsToOrder("1", "1001");
+		orderedItemService.addItemsToOrder("1", "1002");
 		OrderedItems deleteItemsInOrder = orderedItemService.deleteItemsInOrder("1", "1001");
-		logger.info("Orders ->{}", deleteItemsInOrder);
+		assertEquals(1, deleteItemsInOrder.getItems().size());
 	}
 }

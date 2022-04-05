@@ -34,9 +34,9 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 	}
 
 	@Override
-	public OrderedItems addItemsToOrder(Integer orderId, Integer itemId) {
-		OrderedItems orderedItems = orderedItemsRepository.getById(orderId);
-		Item item = itemRepository.getById(itemId);
+	public OrderedItems addItemsToOrder(String orderId, String itemId) {
+		OrderedItems orderedItems = orderedItemsRepository.getById(Integer.parseInt(orderId));
+		Item item = itemRepository.getById(Integer.parseInt(itemId));
 		item.addOrder(orderedItems);
 		orderedItems.addItems(item);
 		return orderedItemsRepository.save(orderedItems);
@@ -75,6 +75,11 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 		order.removeItems(item);
 		item.removeOrder(order);
 		return saveItem(order);
+	}
+
+	@Override
+	public OrderedItems getOrderById(String orderId) {
+		return orderedItemsRepository.getById(Integer.parseInt(orderId));
 	}
 
 }
