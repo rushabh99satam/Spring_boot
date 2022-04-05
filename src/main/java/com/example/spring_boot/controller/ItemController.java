@@ -17,6 +17,7 @@ import com.example.spring_boot.service.ItemService;
 
 /**
  * Items api controller.
+ * 
  * @author Rushabh Satam
  *
  */
@@ -50,6 +51,8 @@ public class ItemController {
 	}
 
 	/**
+	 * This method inserts item inside database and returns inserted Item object.
+	 * 
 	 * @param item Item object.
 	 * @return Item object with given itemId in json.
 	 */
@@ -59,6 +62,9 @@ public class ItemController {
 	}
 
 	/**
+	 * This method deletes specified Item object from database and returns list of
+	 * items from database.
+	 * 
 	 * @param itemId Id of the item in String.
 	 * @return List of Item objects from database in json.
 	 */

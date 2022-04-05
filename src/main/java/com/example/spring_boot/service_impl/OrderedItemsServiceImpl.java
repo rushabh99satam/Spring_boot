@@ -13,6 +13,11 @@ import com.example.spring_boot.repository.ItemRepository;
 import com.example.spring_boot.repository.OrderedItemsRepository;
 import com.example.spring_boot.service.OrderedItemService;
 
+/**
+ * Implementation of OrderedItemService
+ * 
+ * @author Rushabh Satam
+ */
 @Service
 @Transactional
 public class OrderedItemsServiceImpl implements OrderedItemService {

@@ -5,7 +5,7 @@ import java.util.List;
 import com.example.spring_boot.entity.OrderedItems;
 
 /**
- * Interface Item service
+ * Interface OrderedItem service.
  * @author Rushabh Satam
  *
  */

@@ -12,6 +12,12 @@ import com.example.spring_boot.entity.OrderedItems;
 import com.example.spring_boot.repository.ItemRepository;
 import com.example.spring_boot.service.ItemService;
 
+/**
+ * Implementation of ItemService.
+ * 
+ * @author Rushabh Satam
+ *
+ */
 @Service
 @Transactional
 public class ItemServiceImpl implements ItemService {
