@@ -2,7 +2,11 @@
 # Orders API
 Its an application to run basic functionality of e-commerce website. 
 
-
+## In memory database(H2 Database)
+```bash
+	http://localhost:8080/h2-console/
+```
+URL = jdbc:h2:mem:testdb
 
 ## Run the project
 
