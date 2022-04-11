@@ -1,6 +1,8 @@
 package com.example.spring_boot.service_impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
@@ -55,13 +57,15 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 	}
 
 	@Override
-	public String totalCostOfOrder(String orderId) {
+	public Map<String, Double> totalCostOfOrder(String orderId) {
 		OrderedItems orderedItems = orderedItemsRepository.getById(Integer.parseInt(orderId));
 		Double cost = 0d;
 		for (Item item : orderedItems.getItems()) {
 			cost = cost + item.getCost();
 		}
-		return String.valueOf(cost);
+		Map<String, Double> response = new HashMap<String, Double>();
+		response.put(orderId, cost);
+		return response;
 	}
 
 	@Override

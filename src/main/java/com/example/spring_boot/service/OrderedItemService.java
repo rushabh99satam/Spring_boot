@@ -1,6 +1,7 @@
 package com.example.spring_boot.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.example.spring_boot.entity.OrderedItems;
 
@@ -49,9 +50,9 @@ public interface OrderedItemService {
 	 * This method will return total cost of OrderedItems with given orderId.
 	 * 
 	 * @param customerId Id of customers in OrderedItems object in String.
-	 * @return Cost of OrderedItems in String
+	 * @return Cost of OrderedItems in String, Double key value pair
 	 */
-	String totalCostOfOrder(String orderId);
+	Map<String, Double> totalCostOfOrder(String orderId);
 
 	/**
 	 * This method This method deletes specified OrderedItems object from database

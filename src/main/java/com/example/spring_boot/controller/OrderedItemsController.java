@@ -1,6 +1,7 @@
 package com.example.spring_boot.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -79,10 +80,10 @@ public class OrderedItemsController {
 	 * This method will return total cost of OrderedItems with given orderId.
 	 * 
 	 * @param orderId Id of OrderedItems object in String.
-	 * @return Cost of OrderedItems in String
+	 * @return Cost of OrderedItems in String and Double in key value pair.
 	 */
 	@GetMapping("/orders/cost/{orderId}")
-	public String totalCostOfOrder(@PathVariable String orderId) {
+	public Map<String, Double> totalCostOfOrder(@PathVariable String orderId) {
 		return orderedItemsService.totalCostOfOrder(orderId);
 	}
 

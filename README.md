@@ -265,5 +265,7 @@ URL = jdbc:h2:mem:testdb
 
 #### Response
 ```bash
-  2000.0
+  {
+    "1": 2000.0
+}
 ```
