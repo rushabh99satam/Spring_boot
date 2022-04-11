@@ -206,12 +206,12 @@ URL = jdbc:h2:mem:testdb
 ### Add items to order
 #### Request
 ```http
-  PUT /api/v1/orders/{orderId}/{itemId}
+  PUT /api/v1/orders/{customerId}/{itemId}
 ```
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `orderId` | `string` | Id of the order.|
+| `customerId` | `string` | Id of the customer.|
 | `itemId` | `string` | Id of the item to be added.|
 
 #### Response

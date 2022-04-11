@@ -39,8 +39,15 @@ public class OrderedItemsServiceImpl implements OrderedItemService {
 	}
 
 	@Override
-	public OrderedItems addItemsToOrder(String orderId, String itemId) {
-		OrderedItems orderedItems = orderedItemsRepository.getById(Integer.parseInt(orderId));
+	public OrderedItems addItemsToOrder(String customerId, String itemId) {
+		List<OrderedItems> allOrders = getAllOrders();
+		int orderId = 0;
+		for (OrderedItems orderedItems : allOrders) {
+			if (orderedItems.getCustomerId() == Integer.parseInt(customerId)) {
+				orderId = orderedItems.getOrderId();
+			}
+		}
+		OrderedItems orderedItems = orderedItemsRepository.getById(orderId);
 		Item item = itemRepository.getById(Integer.parseInt(itemId));
 		item.addOrder(orderedItems);
 		orderedItems.addItems(item);

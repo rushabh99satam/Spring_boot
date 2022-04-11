@@ -43,12 +43,12 @@ public interface OrderedItemService {
 	 * @param itemId  Id of Item object in String.
 	 * @return OrderedItems object with specified orderId.
 	 */
-	OrderedItems addItemsToOrder(String orderId, String itemId);
+	OrderedItems addItemsToOrder(String customerId, String itemId);
 
 	/**
 	 * This method will return total cost of OrderedItems with given orderId.
 	 * 
-	 * @param orderId Id of OrderedItems object in String.
+	 * @param customerId Id of customers in OrderedItems object in String.
 	 * @return Cost of OrderedItems in String
 	 */
 	String totalCostOfOrder(String orderId);
